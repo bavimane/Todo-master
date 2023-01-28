@@ -1,4 +1,3 @@
-import "./App.css";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -21,8 +20,13 @@ export default function App() {
     setItem("");
   };
 
+  const handleDelete = (id) => {
+    const filteredItems = items.filter((item) => !item.id === id);
+    setItems(filteredItems);
+  };
+
   return (
-    <div className="App">
+    <div>
       <h2>Add the item</h2>
       <input type="text" value={item} onChange={handleChange} />
       <button onClick={handleSubmit}>Submit</button>
@@ -30,7 +34,12 @@ export default function App() {
       <h2>List of Items</h2>
       <ul>
         {items.map((item) => {
-          return <li key={item.id}>{item.value}</li>;
+          return (
+            <li key={item.id}>
+              {item.value}{" "}
+              <button onClick={() => handleDelete(item.id)}>Remove</button>
+            </li>
+          );
         })}
       </ul>
     </div>
