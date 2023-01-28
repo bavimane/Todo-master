@@ -10,18 +10,24 @@ export default function App() {
   };
 
   const handleSubmit = () => {
-    const itemsClone = [...items];
-    const obj = {
-      id: uuidv4(),
-      value: item,
-    };
-    itemsClone.push(obj);
-    setItems(itemsClone);
+    const isFound = items.find((element) => element.value === item);
+    if (isFound) {
+      alert(`${item} is already exist`);
+    } else {
+      const itemsClone = [...items];
+      const obj = {
+        id: uuidv4(),
+        value: item,
+      };
+      itemsClone.push(obj);
+      setItems(itemsClone);
+    }
+
     setItem("");
   };
 
   const handleDelete = (id) => {
-    const filteredItems = items.filter((item) => !item.id === id);
+    const filteredItems = items.filter((item) => item.id !== id);
     setItems(filteredItems);
   };
 
